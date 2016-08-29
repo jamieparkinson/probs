@@ -1,0 +1,21 @@
+@import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
+
+div.grid.topbar {
+	padding-left: 3.5em;
+	padding-right: 3.5em;
+}
+
+.probs-img {
+	margin: 1em;
+}
+
+div.probs-description {
+	font-size: 1.3em;
+	font-family: 'Montserrat', sans-serif !important;
+	padding-left: 1em;
+	color: gray;
+}
+
+div.grid.topbar .input {
+	margin-top: 50px;
+}

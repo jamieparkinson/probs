@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>D3 test</title>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.4.1/math.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+	<style>
+
+input[type=range] {
+  -webkit-appearance: none;
+  background: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  height: 3px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-ms-track {
+  height: 3px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-moz-range-track {
+  height: 3px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: #d01919;
+  margin-top: -6px;
+  position: relative;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
+
+div.symbol-control img {
+	max-width: 14px;
+	max-height: 14px;
+	margin-right: 1em;
+}
+
+div.symbol-control {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.4em 0;
+}
+
+div.symbol-control:first-child {
+	padding-top: 0;
+}
+
+div.symbol-control:last-of-type {
+	padding-bottom: 0;
+}
+
+div.symbol-control input[type=range] {
+	flex-grow: 1;
+}
+
+div.symbol-control label {
+	margin-left: 0.75em;
+	font-size: 0.7em;
+	color: #777;
+}
+
+
+table.very.compact.table {
+	text-align: center;
+}
+
+table.very.compact.table thead tr th {
+	padding: .4em .6em !important;
+}
+
+div.ui.card {
+	position: relative;
+}
+
+div.description.also-known {
+	margin-top: 0 !important;
+	color: rgba(0, 0, 0, 0.37) !important;
+}
+
+</style>
+</head>
+<body>
+	<div class="ui card">
+		<a class="ui right corner label">
+      <i class="wikipedia icon"></i>
+    </a>
+		<div class="content">
+			<div class="header">
+				Normal Distribution
+			</div>
+			<div class="description also-known">
+				Also known as: Gaussian, Bell Curve
+			</div>
+		</div>
+		<div class="image" style="background-color: white; overflow: hidden;">
+			<svg id="normsvg"></svg>
+		</div>
+		<div class="content">
+			<div id="pdf"></div>
+		</div>
+		<div class="content">
+			<div class="symbol-control">
+				<img src="public/symbols/sigma.svg"/>
+				<input type="range" min="0.001" max="2.5" id="sigma" step="0.01" />
+				<label for="sigma">1.00</label>
+			</div>
+			<div class="symbol-control">
+				<img src="public/symbols/mu.svg"/>
+				<input type="range" min="0.001" max="5.999" id="mu" step="0.01"/>
+				<label for="mu">1.00</label>
+			</div>
+		</div>
+		<div class="content">
+			<table class="ui small very compact celled table">
+				<thead>
+					<tr>
+						<th>Mean</th>
+						<th>Median</th>
+						<th>Mode</th>
+						<th>Variance</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td id="mean"></td>
+						<td id="mode"></td>
+						<td id="median"></td>
+						<td id="variance"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br/>
+	</div>
+</body>
+<script>
+
+var pdfTeX = 'f(x) = \\frac{1}{\\sqrt{2\\sigma^2\\pi}} \\exp \\left(-\\frac{(x - \\mu)^2}{2 \\sigma^2} \\right)';
+
+katex.render(pdfTeX, document.getElementById('pdf'), { displayMode: true });
+katex.render('\\mu', document.getElementById('mean'));
+katex.render('\\sigma^2', document.getElementById('variance'));
+katex.render('\\mu', document.getElementById('median'));
+katex.render('\\mu', document.getElementById('mode'));
+
+
+var pdfStr = '(1/sqrt(2*sigma^2*pi))*exp(-(x-mu)^2/(2*sigma^2))';
+var pdfNode = math.parse(pdfStr);
+var pdf = pdfNode.compile();
+
+console.log(pdfNode.toTex());
+
+var getLineArr = function(muIn, sigmaIn) {
+	var lineArr = [];
+	for (var i = 0; i < 256; i++) {
+		var xv = 6*i/256;
+		lineArr[i] = [
+			xv,
+			pdf.eval({ x: xv, sigma: sigmaIn, mu: muIn })
+		];
+	}
+	return lineArr;
+}
+
+var plot = d3.select('#normsvg').attr("width", 290).attr("height", 180);
+
+var x = d3.scaleLinear().domain([0, 6]).range([-5,295]);
+var y = d3.scaleLinear().domain([0, 0.8]).range([140,1]);
+
+var line = d3.line().x(function(d) { return x(d[0]); })
+												.y(function(d) { return y(d[1]); });
+
+
+
+var lineObj = plot.append("path").attr("stroke", "black")
+                   .attr("stroke-width", 4)
+                   .attr("fill", "none")
+                   .attr("d", line(getLineArr(3,1)));
+
+d3.select('#sigma').on("input", function() {
+	var valFloat = parseFloat(this.value);
+	lineObj.attr("d", line(getLineArr(d3.select('#mu').property("value"), this.value)));
+	d3.select('label[for=sigma]').text(valFloat.toFixed(2));
+});
+
+d3.select('#mu').on("input", function() {
+	var valFloat = parseFloat(this.value);
+	lineObj.attr("d", line(getLineArr(this.value, d3.select('#sigma').property("value"))));
+	d3.select('label[for=mu]').text(valFloat.toFixed(2));
+});
+
+</script>
+</html>
