@@ -8,7 +8,7 @@ import {line} from 'd3-shape';
 
 const AlsoKnownAs = ({names}) => (
   <div className="description also-known">
-    Also known as: {names.join(', ')}
+    { names.length > 0 ? "Also known as: " + names.join(', ') : "No other common names"}
   </div>
 );
 
@@ -24,7 +24,7 @@ const Control = (variable) => (
     <input type="range" min={variable.min}
                         max={variable.max}
                         value={variable.value}
-                        step="0.01" 
+                        step="0.01"
                         id={variable.name}
                         onChange={variable.change}/>
     <label htmlFor={variable.name}>{variable.value.toFixed(2)}</label>
@@ -32,7 +32,7 @@ const Control = (variable) => (
 )
 
 const Controls = ({variables, values, changeHandler}) => {
-  var controlItems = Object.keys(variables).map(v => 
+  var controlItems = Object.keys(variables).map(v =>
     (<Control {...variables[v]}
               value={parseFloat(values[v])}
               change={changeHandler.bind(null, v)}
@@ -78,8 +78,8 @@ class Graph extends React.Component {
 
   lineArr() {
     var arr = []
-    var xMax = this.props.limits.x[1];
-    var vars = this.props.variables;
+    const xMax = this.props.limits.x[1];
+    const vars = this.props.variables;
     for (var i = 0; i < 150; i++) {
       var xv = xMax*i/150;
       arr[i] = [
@@ -125,7 +125,7 @@ class DistributionCard extends React.Component {
   render() {
     return(
       <Card>
-        <Label corner="right" href={this.props.wiki}>
+        <Label corner="right" href={this.props.wiki} target="_blank">
           <Icon name="wikipedia" style={{ cursor: 'pointer' }}/>
         </Label>
 
