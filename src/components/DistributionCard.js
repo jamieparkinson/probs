@@ -2,105 +2,12 @@ import React from 'react';
 import {Card, Label, Icon} from 'semantic-ui-react';
 import math from 'mathjs';
 import {
-    InlineMath,
-    BlockMath
-} from 'react-katex';
-
-import {scaleLinear} from 'd3-scale';
-import {line} from 'd3-shape';
-
-const AlsoKnownAs = ({names}) => (
-    <div className="description also-known">
-        { names.length > 0 ? "Also known as: " + names.join(', ') : "No other common names"}
-    </div>
-);
-
-const PDF = ({formula}) => (
-    <Card.Content>
-        <BlockMath>{formula}</BlockMath>
-    </Card.Content>
-);
-
-const Control = (variable) => (
-    <div className="symbol-control">
-        <InlineMath>{variable.tex}</InlineMath>
-        <input type="range" min={variable.min}
-               max={variable.max}
-               value={variable.value}
-               step="0.01"
-               id={variable.name}
-               onChange={variable.change}/>
-        <label htmlFor={variable.name}>{variable.value.toFixed(2)}</label>
-    </div>
-);
-
-const Controls = ({variables, values, changeHandler}) => (
-    <Card.Content>
-        {Object.keys(variables).map(v =>
-            (<Control {...variables[v]}
-                      value={parseFloat(values[v])}
-                      change={changeHandler.bind(null, v)}
-                      key={v}/>)
-        )}
-    </Card.Content>
-);
-
-
-const Statistics = ({values}) => {
-    var valNames = Object.keys(values);
-    var header = valNames.map(v => (<th key={v}>{v}</th>));
-    var texvals = valNames.map(v => (<td key={v}><InlineMath>{values[v]}</InlineMath></td>));
-    return (
-        <Card.Content>
-            <table className="ui small very compact celled table">
-                <thead>
-                <tr>{header}</tr>
-                </thead>
-                <tbody>
-                <tr>{texvals}</tr>
-                </tbody>
-            </table>
-        </Card.Content>
-    );
-};
-
-class Graph extends React.Component {
-    constructor(props) {
-        super(props);
-        this.width = 290;
-        this.height = 180;
-
-        const xScale = scaleLinear().domain(props.limits.x).range([-5, this.width + 5]);
-        const yScale = scaleLinear().domain(props.limits.y).range([this.height - 30, 1]);
-        this.line = line().x(r => xScale(r[0]))
-            .y(r => yScale(r[1]));
-    }
-
-    lineArr() {
-        var arr = [];
-        const xMax = this.props.limits.x[1];
-        const vars = this.props.variables;
-        for (var i = 0; i < 150; i++) {
-            var xv = xMax * i / 150;
-            arr[i] = [
-                xv,
-                this.props.func.eval({...vars, x: xv})
-            ];
-        }
-        return arr;
-    }
-
-    render() {
-        return (
-            <div className="image svg-wrapper">
-                <svg width={this.width} height={this.height}>
-                    <path stroke="black" strokeWidth="4"
-                          fill="none" d={this.line(this.lineArr())}/>
-                </svg>
-            </div>
-        );
-    }
-}
+    AlsoKnownAs,
+    PDF,
+    Controls,
+    Statistics,
+    Graph
+} from './distributionComponents/';
 
 class DistributionCard extends React.Component {
     constructor(props) {
