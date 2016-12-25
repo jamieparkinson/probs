@@ -225,11 +225,240 @@
     "variables": {
       "p": { "min": 0.5, "max": 5, "init": 2, "tex": "p" },
       "a": { "min": 0.5, "max": 5, "init": 3, "tex": "a" },
-      "b": { "min": 0.5, "max": 5, "init": 2.5, "tex": "b" }
+      "b": { "min": 0.1, "max": 3, "init": 1, "tex": "b" }
     },
     "graphLimits": {
-      "x": [0.1, 4],
-      "y": [0, 1.25]
+      "x": [0.01, 4],
+      "y": [0, 1.1]
+    }
+  },
+  {
+    "title": "Chi Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Chi_distribution",
+    "pdf": "(2^(1-k/2)/gamma(k/2))*(x/b)^(k-1)*exp(-x^2/(2*b^2))",
+    "texPdf": "\\frac{2^{1-k/2} \\left( \\frac{x}{b} \\right)^{k-1} \\exp \\left( -\\frac{x^2}{2 b^2} \\right)}{\\Gamma(k/2)}",
+    "altNames": [],
+    "statistics": {
+      "Mean": "\\sqrt{2} b \\Gamma \\left( \\frac{k+1}{2} \\right) / \\Gamma(k/2)",
+      "Median": "-",
+      "Mode": "b \\sqrt{k - 1}",
+      "Variance": "b^2 \\left[ k - 2 \\left(  \\frac{\\Gamma \\left( \\frac{k+1}{2} \\right)}{\\Gamma(k/2)} \\right)^2 \\right]"
+    },
+    "variables": {
+      "b": { "min": 0.5, "max": 2, "init": 1, "tex": "b" },
+      "k": { "min": 0.8, "max": 5, "init": 2, "tex": "k" }
+    },
+    "graphLimits": {
+      "x": [0.01, 4],
+      "y": [0, 1]
+    }
+  },
+  {
+    "title": "Chi-squared Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Chi-squared_distribution",
+    "pdf": "(x^((k/2) - 2)*exp(-x/2))/((2^(k/2))*gamma(k/2))",
+    "texPdf": "\\frac{1}{2^{k/2} \\Gamma(k/2)} x^{k/2 - 1} \\exp(-\\frac{x}{2})",
+    "altNames": ["Central chi-squared"],
+    "statistics": {
+      "Mean": "k",
+      "Median": "-",
+      "Mode": "\\max\\{k - 2, 0\\}",
+      "Variance": "2 k"
+    },
+    "variables": {
+      "k": { "min": 2, "max": 9, "init": 5, "tex": "k" }
+    },
+    "graphLimits": {
+      "x": [0.01, 10],
+      "y": [0, 0.21]
+    }
+  },
+  {
+    "title": "Exponential Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Exponential_distribution",
+    "pdf": "lambda*exp(-lambda * x)",
+    "texPdf": "\\lambda e^{-\\lambda x}",
+    "altNames": ["Negative exponential"],
+    "statistics": {
+      "Mean": "\\frac{1}{\\lambda}",
+      "Median": "\\frac{ \\ln 2 }{\\lambda}",
+      "Mode": "0",
+      "Variance": "\\frac{1}{\\lambda^2}"
+    },
+    "variables": {
+      "lambda": { "min": 0.5, "max": 3.5, "init": 1.8, "tex": "\\lambda" }
+    },
+    "graphLimits": {
+      "x": [0, 2.8],
+      "y": [0, 2]
+    }
+  },
+  {
+    "title": "Log-logistic Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Log-logistic_distribution",
+    "pdf": "(b/a)*(x/a)^(b-1)/(1 + (x/a)^b)^2",
+    "texPdf": "\\frac{ (\\beta / \\alpha) (x / \\alpha)^{\\beta - 1} }{\\left(1 + (x/\\alpha)^\\beta \\right)^2}",
+    "altNames": ["Fisk"],
+    "statistics": {
+      "Mean": "\\frac{a \\pi / \\beta}{\\sin(\\pi / \\beta)}",
+      "Median": "\\alpha",
+      "Mode": "\\alpha \\left( \\frac{\\beta - 1}{\\beta + 1} \\right)^{1/\\beta}",
+      "Variance": "-"
+    },
+    "variables": {
+      "a": { "min": 0.01, "max": 1.5, "init": 0.5, "tex": "\\alpha" },
+      "b": { "min": 1.01, "max": 5, "init": 2, "tex": "\\beta" }
+    },
+    "graphLimits": {
+      "x": [0, 1.5],
+      "y": [0, 2]
+    }
+  },
+  {
+    "title": "Gamma Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Gamma_distribution",
+    "pdf": "(b^a / gamma(a))*x^(a-1)*exp(-b*x)",
+    "texPdf": "\\frac{\\beta^\\alpha}{\\Gamma(\\alpha)} x^{\\alpha - 1} e^{-\\beta x}",
+    "altNames": [],
+    "statistics": {
+      "Mean": "\\alpha / \\beta",
+      "Median": "-",
+      "Mode": "\\frac{\\alpha - 1}{\\beta}",
+      "Variance": "\\alpha/\\beta^2"
+    },
+    "variables": {
+      "a": { "min": 1.01, "max": 10, "init": 5, "tex": "\\alpha" },
+      "b": { "min": 0.5, "max": 2.5, "init": 1.3, "tex": "\\beta" }
+    },
+    "graphLimits": {
+      "x": [0, 10],
+      "y": [0, 0.4]
+    }
+  },
+  {
+    "title": "Gumbel Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Gumbel_distribution",
+    "pdf": "exp(-((x-mu)/b) - exp(-(x-mu)/b))/b",
+    "texPdf": "\\frac{1}{\\beta}\\exp\\left( - \\left[ \\frac{x-\\mu}{\\beta} + e^{-(x-\\mu)/\\beta} \\right] \\right)",
+    "altNames": ["Log-Weibull", "Fisher-Tippett"],
+    "statistics": {
+      "Mean": "\\frac{x-\\mu}{\\beta} + \\beta \\gamma",
+      "Median": "\\frac{x-\\mu}{\\beta} - \\beta \\ln \\ln 2",
+      "Mode": "\\frac{x-\\mu}{\\beta}",
+      "Variance": "\\frac{\\pi^2 \\beta^2}{6}"
+    },
+    "variables": {
+      "mu": { "min": 0.3, "max": 4, "init": 1.5, "tex": "\\mu" },
+      "b": { "min": 1.01, "max": 5, "init": 2, "tex": "\\beta" }
+    },
+    "graphLimits": {
+      "x": [0, 8],
+      "y": [0, 0.2]
+    }
+  },
+  {
+    "title": "Lévy Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/L%C3%A9vy_distribution",
+    "pdf": "sqrt(c/(2*pi))*exp(-c/(2*x))/x^(3/2)",
+    "texPdf": "\\sqrt{\\frac{c}{2 \\pi}} \\cdot \\frac{e^{-c/2x}}{x^{3/2}}",
+    "altNames": ["van der Waals profile", "Lévy alpha-stable"],
+    "statistics": {
+      "Mean": "\\infty",
+      "Median": "\\frac{c}{2} (\\mathrm{erfc}^{-1}(1/2))^2",
+      "Mode": "c/3",
+      "Variance": "\\infty"
+    },
+    "variables": {
+      "c": { "min": 0.5, "max": 3.3, "init": 1.1, "tex": "c" }
+    },
+    "graphLimits": {
+      "x": [0.01, 2.1],
+      "y": [0, 0.8]
+    }
+  },
+  {
+    "title": "Log-normal Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Log-normal_distribution",
+    "pdf": "exp(-(log(x) - mu)^2 / (2*s^2))/(x*s*sqrt(2*pi))",
+    "texPdf":"\\frac{1}{x \\sigma \\sqrt{2 \\pi}} \\exp \\left( \\frac{(\\ln x - \\mu)^2}{2 \\sigma^2} \\right)",
+    "altNames": ["Galton", "Cobb-Douglas"],
+    "statistics": {
+      "Mean": "\\exp(\\mu + \\sigma^2 / 2)",
+      "Median": "e^\\mu",
+      "Mode": "\\exp(\\mu - \\sigma^2",
+      "Variance": "(e^{\\sigma^2} - 1)e^{2\\mu + \\sigma^2}"
+    },
+    "variables": {
+      "mu": { "min": 0, "max": 1.1, "init": 0.5, "tex": "\\mu" },
+      "s": { "min": 0.1, "max": 2, "init": 0.5, "tex": "\\sigma" }
+    },
+    "graphLimits": {
+      "x": [0.01, 3],
+      "y": [0, 1]
+    }
+  },
+  {
+    "title": "Pareto Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Pareto_distribution",
+    "pdf": "(x >= xm ) ? a*xm^a / x^(a+1) : 0",
+    "texPdf": "\\frac{\\alpha x_m^\\alpha}{x^{\\alpha+1}}",
+    "altNames": [],
+    "statistics": {
+      "Mean": "\\frac{\\alpha x_m}{\\alpha - 1}",
+      "Median": "x_m \\sqrt[\\alpha]{2}",
+      "Mode": "x_m",
+      "Variance": "\\frac{x_m^2 \\alpha}{(\\alpha-1)^2(\\alpha-2)}"
+    },
+    "variables": {
+      "xm": { "min": 0.2, "max": 3, "init": 1, "tex": "x_m" },
+      "a": { "min": 0.5, "max": 3, "init": 1, "tex": "\\alpha" }
+    },
+    "graphLimits": {
+      "x": [0, 4],
+      "y": [0, 2.5]
+    }
+  },
+  {
+    "title": "Triangular Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Triangular_distribution",
+    "pdf": "x < a ? 0 : (x >= a and x < c) ? 2*(x-a)/((b-a)*(c-a)) : x == c ? 2/(b-a) : (c < x and x <= b) ? 2*(b-x)/((b-a)*(b-c)) : 0",
+    "texPdf": "\\begin{cases} \\frac{2(x-a)}{(b-a)(c-a)} & x \\leq c \\\\ \\frac{2(b-x)}{(b-a)(b-c)} & x > c \\end{cases}",
+    "altNames": [],
+    "statistics": {
+      "Mean": "(a+b+c)/3",
+      "Median": "\\begin{cases} a + \\sqrt{(b-a)(c-a)/2} & c \\geq \\frac{a+b}{2} \\\\ b - \\sqrt{(b-a)(b-c)/2} & c \\leq \\frac{a+b}{2} \\end{cases}",
+      "Mode": "c",
+      "Variance": "\\frac{a^2 + b^2 + c^2 - ab - ac - bc}{18}"
+    },
+    "variables": {
+      "a": { "min": 0, "max": 2, "init": 0.2, "tex": "a" },
+      "b": { "min": 2, "max": 4, "init": 3.8, "tex": "b" },
+      "c": { "min": 0.2, "max": 3.8, "init": 2.2, "tex": "c"}
+    },
+    "graphLimits": {
+      "x": [0, 4],
+      "y": [0, 0.8]
+    }
+  },
+  {
+    "title": "Weibull Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Weibull_distribution",
+    "pdf": "(k/l)*(x/l)^(k-1)*exp(-(x/l)^k)",
+    "texPdf": "\\frac{k}{\\lambda}\\left(\\frac{x}{\\lambda}\\right)^{k-1} e^{-(x/\\lambda)^k}",
+    "altNames": ["Fréchet"],
+    "statistics": {
+      "Mean": "\\lambda \\Gamma(1 + 1/k)",
+      "Median": "\\lambda (\\ln 2)^{1/k}",
+      "Mode": "\\lambda \\left( \\frac{k-1}{k} \\right)^{1/k}",
+      "Variance": "\\lambda^2\\left[ \\Gamma \\left( 1 + \\frac{2}{k} \\right) - \\Gamma \\left( 1 + \\frac{1}{k} \\right)^2 \\right]"
+    },
+    "variables": {
+      "k": { "min": 0.8, "max": 3, "init": 2.3, "tex": "k" },
+      "l": { "min": 0.3, "max": 4, "init": 1.5, "tex": "\\lambda" }
+    },
+    "graphLimits": {
+      "x": [0, 2.5],
+      "y": [0, 1]
     }
   }
 ]
