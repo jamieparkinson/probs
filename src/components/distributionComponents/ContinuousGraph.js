@@ -2,7 +2,7 @@ import React from 'react'
 import {scaleLinear} from 'd3-scale';
 import {line} from 'd3-shape';
 
-class Graph extends React.Component {
+class ContinuousGraph extends React.Component {
     constructor(props) {
         super(props);
         this.width = 290;
@@ -32,12 +32,14 @@ class Graph extends React.Component {
         return (
             <div className="image svg-wrapper">
                 <svg width={this.width} height={this.height}>
-                    <path stroke="black" strokeWidth="4"
-                          fill="none" d={this.line(this.lineArr())}/>
+                    <path stroke="black"
+                          strokeWidth="4"
+                          fill="none"
+                          d={this.line(this.lineArr())}/>
                 </svg>
             </div>
         );
     }
 }
 
-export default Graph;
+export default ContinuousGraph;

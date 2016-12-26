@@ -8,10 +8,10 @@ const Control = (variable) => (
         <input type="range" min={variable.min}
                max={variable.max}
                value={variable.value}
-               step="0.01"
+               step={variable.int ? 1 : 0.01}
                id={variable.name}
                onChange={variable.change}/>
-        <label htmlFor={variable.name}>{variable.value.toFixed(2)}</label>
+        <label htmlFor={variable.name}>{variable.value.toFixed(variable.int ? 0 : 2)}</label>
     </div>
 );
 

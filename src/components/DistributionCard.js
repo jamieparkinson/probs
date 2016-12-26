@@ -6,7 +6,8 @@ import {
     PDF,
     Controls,
     Statistics,
-    Graph
+    ContinuousGraph,
+    DiscreteGraph
 } from './distributionComponents/';
 
 class DistributionCard extends React.Component {
@@ -46,9 +47,15 @@ class DistributionCard extends React.Component {
                     <AlsoKnownAs names={this.props.altNames}/>
                 </Card.Content>
 
-                <Graph variables={this.state}
-                       func={this.pdfFunc}
-                       limits={this.props.graphLimits}/>
+                {!this.props.discrete ?
+                    <ContinuousGraph variables={this.state}
+                                    func={this.pdfFunc}
+                                    limits={this.props.graphLimits}/>
+                    :
+                    <DiscreteGraph variables={this.state}
+                                   func={this.pdfFunc}
+                                   limits={this.props.graphLimits}/>
+                }
 
                 <PDF formula={this.props.texPdf}/>
 
