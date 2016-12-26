@@ -8,13 +8,13 @@ class DiscreteGraph extends React.Component {
         this.width = 290;
         this.height = 180;
 
-        const xScale = scaleLinear().domain(props.limits.x).range([0, this.width]);
+        const xScale = scaleLinear().domain(props.limits.x).range([10, this.width - 10]);
         const yScale = scaleLinear().domain(props.limits.y).range([this.height - 30, 1]);
         this.line = line().x(r => xScale(r[0]))
             .y(r => yScale(r[1]));
 
         const [xMin, xMax] = props.limits.x;
-        this.xVals = Array(xMax - xMin).fill().map((_, i) => xMin + i);
+        this.xVals = Array(xMax - xMin + 1).fill().map((_, i) => xMin + i);
     }
 
     _y(x) {
@@ -35,7 +35,7 @@ class DiscreteGraph extends React.Component {
                 <svg width={this.width} height={this.height}>
                     {this.xVals.map(x => (
                         <path stroke="black"
-                              strokeWidth="4"
+                              strokeWidth="3"
                               strokeLinecap="round"
                               fill="none"
                               d={this.lineUp(x)}

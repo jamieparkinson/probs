@@ -471,7 +471,7 @@
     "statistics": {
       "Mean": "n p",
       "Median": "-",
-      "Mode": "\\left\\lfloor{(n+1)p}\\right\\rceil",
+      "Mode": "\\left\\lfloor{(n+1)p}\\right\\rfloor",
       "Variance": "n p(1-p)"
     },
     "variables": {
@@ -481,6 +481,70 @@
     "graphLimits": {
       "x": [0, 25],
       "y": [0, 0.27]
+    }
+  },
+  {
+    "title": "Geometric Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Geometric_distribution",
+    "discrete": true,
+    "pdf": "p*(1-p)^x",
+    "texPdf": "(1-p)^x p",
+    "altNames": [],
+    "statistics": {
+      "Mean": "\\frac{1-p}{p}",
+      "Median": "\\left \\lceil \\frac{-1}{\\log_2(1-p)} \\right \\rceil - 1",
+      "Mode": "0",
+      "Variance": "\\frac{1-p}{p^2}"
+    },
+    "variables": {
+      "p": { "min": 0, "max": 1, "init": 0.5, "tex": "p"}
+    },
+    "graphLimits": {
+      "x": [0, 9],
+      "y": [0, 0.8]
+    }
+  },
+  {
+    "title": "Poisson Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Poisson_distribution",
+    "discrete": true,
+    "pdf": "l^x * e^(-l) / factorial(x)",
+    "texPdf": "\\frac{\\lambda^k e^{-\\lambda}}{k!}",
+    "altNames": [],
+    "statistics": {
+      "Mean": "\\lambda",
+      "Median": "-",
+      "Mode": "\\left\\lfloor\\lambda\\right\\rfloor",
+      "Variance": "\\lambda"
+    },
+    "variables": {
+      "l": { "min": 0, "max": 16, "init": 6, "tex": "\\lambda" }
+    },
+    "graphLimits": {
+      "x": [0, 20],
+      "y": [0, 0.3]
+    }
+  },
+  {
+    "title": "Negative Binomial Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Negative_binomial_distribution",
+    "discrete": true,
+    "pdf": "combinations(x+r-1,x)*(1-p)^r*p^x",
+    "texPdf": "\\binom{k+r+1}{k}(1-p)^r p^k",
+    "altNames": ["Polya", "Pascal"],
+    "statistics": {
+      "Mean": "\\frac{pr}{1-p}",
+      "Median": "-",
+      "Mode": "\\left\\lfloor\\frac{p(r-1)}{1-p}\\right\\rfloor",
+      "Variance": "\\frac{pr}{(1-p)^2}"
+    },
+    "variables": {
+      "r": { "min": 1, "max": 30, "init": 12, "tex": "r", "int": true },
+      "p": { "min": 0, "max": 1, "init": 0.5, "tex": "p" }
+    },
+    "graphLimits": {
+      "x": [0, 30],
+      "y": [0, 0.12]
     }
   }
 ]
