@@ -9,6 +9,17 @@ import {
 import './components/Probs.css';
 
 import distributionData from './distributionData.json';
+// Sort by name
+distributionData.sort((a,b) => {
+    const lcA = a.title.toLowerCase();
+    const lcB = b.title.toLowerCase();
+    if (lcA < lcB) {
+        return -1;
+    } else if (lcA > lcB) {
+        return +1;
+    }
+    return 0;
+});
 
 class MainContainer extends React.Component {
     constructor(props) {
