@@ -1,6 +1,6 @@
 div.grid.topbar {
-	padding-left: 3.5em;
-	padding-right: 3.5em;
+	padding-left: 2.5em;
+	padding-right: 2.5em;
 }
 
 .probs-img {
@@ -16,15 +16,39 @@ div.probs-description {
 
 div.card-section-container {
 	max-width: 1300px;
-	margin: 0 auto;
+	margin:4em auto 0 auto;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
-div.ui.cards {
-	margin-top: 3em;
+div.card-section-container > .card {
+	margin: 9px;
+	/* To override weird semantic-ui stuff */
+	margin-top: 9px !important;
 }
 
 div.grid.topbar .input {
 	margin-top: 50px;
+	margin-left: 4em;
+}
+
+@media screen and (max-width: 768px) {
+	div.grid.topbar .input {
+		margin-left: 0;
+		margin-top: 0;
+	}
+
+	.probs-img {
+		width: 260px;
+		display: block;
+		margin: 20px auto;
+	}
+
+	.probs-description {
+		text-align: center;
+		padding-left: 0 !important;
+	}
 }
 
 input[type=range] {

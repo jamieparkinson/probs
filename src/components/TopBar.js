@@ -8,7 +8,7 @@ import {
 import probsLogo from './img/probs.svg';
 
 const TopBar = ({ onFilter }) => (
-    <Grid className="sticky topbar" padded>
+    <Grid className="sticky topbar" padded stackable>
         <Grid.Column width={4}>
             <Image src={probsLogo} className="probs-img"/>
             <div className="probs-description">

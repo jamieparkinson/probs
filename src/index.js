@@ -46,11 +46,9 @@ class MainContainer extends React.Component {
 
                 {this.state.shownCards.length > 0 ?
                     <div className="card-section-container">
-                        <div className="ui cards">
-                            {this.state.shownCards.map(card => (
-                                <DistributionCard {...card} key={card.title}/>
-                            ))}
-                        </div>
+                        {this.state.shownCards.map(card => (
+                            <DistributionCard {...card} key={card.title}/>
+                        ))}
                     </div>
                 :
                     <div className="no-dists">
