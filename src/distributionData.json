@@ -453,7 +453,7 @@
       "Variance": "\\lambda^2\\left[ \\Gamma \\left( 1 + \\frac{2}{k} \\right) - \\Gamma \\left( 1 + \\frac{1}{k} \\right)^2 \\right]"
     },
     "variables": {
-      "k": { "min": 0.8, "max": 3, "init": 2.3, "tex": "k" },
+      "k": { "min": 1.01, "max": 3, "init": 2.3, "tex": "k" },
       "l": { "min": 0.3, "max": 4, "init": 1.5, "tex": "\\lambda" }
     },
     "graphLimits": {

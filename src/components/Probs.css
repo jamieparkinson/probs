@@ -16,7 +16,7 @@ div.probs-description {
 
 div.card-section-container {
 	max-width: 1300px;
-	margin:4em auto 0 auto;
+	margin: 4em auto 2em auto;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -26,6 +26,7 @@ div.card-section-container > .card {
 	margin: 9px;
 	/* To override weird semantic-ui stuff */
 	margin-top: 9px !important;
+	margin-bottom: 9px !important;
 }
 
 div.grid.topbar .input {
