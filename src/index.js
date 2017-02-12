@@ -35,7 +35,10 @@ class MainContainer extends React.Component {
 
     handleFilter(filterText) {
         this.setState({
-            shownCards: this.state.cards.filter(card => card.title.toLowerCase().includes(filterText.toLowerCase()))
+            shownCards: this.state.cards.filter(card =>
+                card.title.toLowerCase().includes(filterText.toLowerCase()) ||
+                card.altNames.some(altName => altName.toLowerCase().includes(filterText.toLowerCase()))
+            )
         });
     }
 
