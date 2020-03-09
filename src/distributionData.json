@@ -546,5 +546,27 @@
       "x": [0, 30],
       "y": [0, 0.12]
     }
+  },
+  {
+    "title": "Erlang Distribution",
+    "wiki": "https://en.wikipedia.org/wiki/Erlang_distribution",
+    "discrete": false,
+    "pdf": "(l^k)*(x^(k-1))*exp(-l*x)/factorial(k-1)",
+    "texPdf": "\\frac{\\lambda^k x^{k-1} e^{-\\lambda x}}{(k-1)!}",
+    "altNames": [],
+    "statistics": {
+      "Mean": "\\frac{k}{\\lambda}",
+      "Median": "-",
+      "Mode": "\\frac{1}{\\lambda}(k-1)",
+      "Variance": "\\frac{k}{\\lambda^2}"
+    },
+    "variables": {
+      "k": { "min": 1, "max": 10, "init": 3, "tex": "k", "int": true },
+      "l": { "min": 0, "max": 1.02, "init": 0.5, "tex": "\\lambda" }
+    },
+    "graphLimits": {
+      "x": [0, 26],
+      "y": [0, 0.2]
+    }
   }
 ]
